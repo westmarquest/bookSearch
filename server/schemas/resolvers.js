@@ -1,6 +1,6 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const { User, Book } = require("../models"); // Adjust the path as needed
+const { User } = require("../models"); // Adjust the path as needed
+const { bookSchema } = require("../models/Book");
+const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
@@ -31,31 +31,21 @@ const resolvers = {
         throw new Error("No user found with this email address");
       }
 
-      const validPassword = await bcrypt.compare(password, user.password);
+      const validPassword = await user.isCorrectPassword(password);
 
       if (!validPassword) {
         throw new Error("Incorrect password");
       }
 
-      const token = jwt.sign(
-        { id: user.id, email: user.email },
-        "your_secret_key",
-        { expiresIn: "1h" }
-      );
+      const token = signToken(user);
 
       return { token, user };
     },
     addUser: async (parent, { username, email, password }) => {
-      const hashedPassword = await bcrypt.hash(password, 10);
-
-      const user = new User({ username, email, password: hashedPassword });
+      const user = new User({ username, email, password });
       await user.save();
 
-      const token = jwt.sign(
-        { id: user.id, email: user.email },
-        "your_secret_key",
-        { expiresIn: "1h" }
-      );
+      const token = signToken(user);
 
       return { token, user };
     },
@@ -66,7 +56,7 @@ const resolvers = {
 
       const user = await User.findById(context.user.id);
 
-      const newBook = new Book(input);
+      const newBook = new bookSchema(input);
 
       user.savedBooks.push(newBook);
       await user.save();
