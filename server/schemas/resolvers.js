@@ -1,26 +1,16 @@
 const { User } = require("../models"); // Adjust the path as needed
 const { bookSchema } = require("../models/Book");
+const { findById } = require("../models/User");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
-    me: (parent, args, context) => {
+    me: async (parent, args, context) => {
       if (!context.user) {
         throw new Error("You must be logged in");
       }
-      return context.user;
-    },
-    savedBooks: (parent, args, context) => {
-      if (!context.user) {
-        throw new Error("You must be logged in");
-      }
-      return context.user.savedBooks;
-    },
-    bookCount: (parent, args, context) => {
-      if (!context.user) {
-        throw new Error("You must be logged in");
-      }
-      return context.user.savedBooks ? context.user.savedBooks.length : 0;
+      const user = await User.findById(context.user._id);
+      return user;
     },
   },
   Mutation: {
@@ -50,16 +40,21 @@ const resolvers = {
       return { token, user };
     },
     saveBook: async (parent, { input }, context) => {
+      console.log("input", input);
       if (!context.user) {
         throw new Error("You must be logged in");
       }
-
-      const user = await User.findById(context.user.id);
-
-      const newBook = new bookSchema(input);
-
-      user.savedBooks.push(newBook);
-      await user.save();
+      console.log("context", context.user);
+      const user = await User.findByIdAndUpdate(
+        { _id: context.user._id },
+        { $push: { savedBooks: input } },
+        { new: true }
+      );
+      console.log("user", user);
+      // const newBook = new bookSchema(input);
+      // console.log("new book", newBook);
+      // user.savedBooks.push(newBook);
+      // await user.save();
 
       return user;
     },

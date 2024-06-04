@@ -3,15 +3,13 @@ const { gql } = require("apollo-server");
 const typeDefs = gql`
   type Query {
     me: User
-    savedBooks: [Book]
-    bookCount: Int
   }
 
   input BookInput {
-    authors: [String!]!
+    authors: [String]
     description: String
     title: String!
-    bookId: ID!
+    bookId: String!
     image: String
     link: String
   }
