@@ -33,12 +33,12 @@ const startApolloServer = async () => {
 
   // Serve static assets if in production
   if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../client/build")));
+    app.use(express.static(path.join(__dirname, "../client/dist")));
   }
 
   // Handle all other routes by serving the client
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/build/index.html"));
+    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
   });
 
   db.once("open", () => {
