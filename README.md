@@ -1,10 +1,10 @@
 # Book Search Engine
 
-##Overview
+## Overview
 
 The Book Search Engine is a web application designed to help users search for books and manage their personal book collection. Leveraging the Google Books API, it provides a comprehensive platform for discovering, saving, and organizing books. Users can search for books by title, author, or description, and manage their reading lists by saving or removing books in their account.
 
-##Features
+## Features
 
 -Search Books: Search for books using the Google Books API.
 -View Search Results: Display search results including book title, author, description, image, and a link to the book on Google Books.
@@ -14,7 +14,7 @@ The Book Search Engine is a web application designed to help users search for bo
 -Remove Books: Remove books from the personal saved list.
 -Responsive Design: Optimized for desktop and mobile use.
 
-##Usage
+## Usage
 
 -Access the Application: Visit the deployed application here:  https://booksearching.onrender.com/
 
