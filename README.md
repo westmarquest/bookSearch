@@ -6,8 +6,8 @@ The Book Search Engine is a web application designed to help users search for bo
 
 ## Features
 
--Search Books: Search for books using the Google Books API.
--View Search Results: Display search results including book title, author, description, image, and a link to the book on Google Books.
+- Search Books: Search for books using the Google Books API.
+- View Search Results: Display search results including book title, author, description, image, and a link to the book on Google Books.
 -User Authentication: Sign up and log in to manage personal book collections.
 -Save Books: Save books to a personal list for future reference.
 -View Saved Books: Access and manage saved books.
