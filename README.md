@@ -47,5 +47,5 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ## Acknowledgements
 
--Google Books API for providing book data.
--React, GraphQL, Node.js, and other open-source tools for making development possible.
+- Google Books API for providing book data.
+- React, GraphQL, Node.js, and other open-source tools for making development possible.
